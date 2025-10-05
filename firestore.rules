@@ -1,0 +1,56 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    function isOwner(calendarId) {
+      return request.auth.uid == get(/databases/$(database)/documents/calendars/$(calendarId)).data.ownerUid;
+    }
+
+    // Corrected function: changed parameter from "timestamp" to "ts"
+    function isInCurrentMonth(ts) {
+      let now = request.time;
+      let startOfMonth = timestamp.date(now.year(), now.month(), 1);
+      let startOfNextMonth = now.month() < 12 
+        ? timestamp.date(now.year(), now.month() + 1, 1)
+        : timestamp.date(now.year() + 1, 1, 1);
+      return ts >= startOfMonth && ts < startOfNextMonth;
+    }
+  
+    match /users/{userId} {
+      allow read, update: if request.auth.uid == userId;
+      allow create: if request.auth.uid != null;
+    }
+    
+    match /calendars/{calendarId} {
+      allow read: if true;
+      allow create, update, delete: if isOwner(calendarId);
+    }
+    
+    match /calendars/{calendarId}/events/{eventId} {
+      allow read: if isInCurrentMonth(resource.data.startUTC);
+      allow create, update, delete: if isOwner(calendarId) && 
+                                       isInCurrentMonth(request.resource.data.startUTC);
+    }
+    
+    match /calendars/{calendarId}/booking_requests/{reqId} {
+      allow read: if isOwner(calendarId);
+      
+      allow create: if request.resource.data.requesterName is string &&
+                       request.resource.data.requesterName.size() > 0 &&
+                       request.resource.data.requesterEmail is string &&
+                       request.resource.data.requesterEmail.matches('.+@.+\\..+') &&
+                       request.resource.data.status == 'pending' &&
+                       request.resource.data.requestedStartUTC is timestamp &&
+                       request.resource.data.requestedEndUTC is timestamp &&
+                       request.resource.data.requestedStartUTC > request.time &&
+                       isInCurrentMonth(request.resource.data.requestedStartUTC) &&
+                       (request.resource.data.message == null || 
+                        (request.resource.data.message is string && request.resource.data.message.size() < 500));
+                        
+      allow update: if isOwner(calendarId) &&
+                       request.resource.data.status != resource.data.status &&
+                       request.resource.data.keys().hasOnly(['status']);
+    }
+  }
+}

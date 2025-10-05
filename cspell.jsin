@@ -1,0 +1,21 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "VITE",
+    "Firestore",
+    "Subcollection",
+    "Schedulr",
+    "Segoe",
+    "Roboto",
+    "Neue",
+    "Noto",
+    "Kolkata",
+    "firebase",
+    "firestore",
+    "vitejs",
+    "headlessui",
+    "nanoid"
+  ],
+  "ignorePaths": ["node_modules", "dist", "package-lock.json"]
+}
