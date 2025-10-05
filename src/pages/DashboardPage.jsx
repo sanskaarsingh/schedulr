@@ -179,15 +179,15 @@ const DashboardPage = () => {
 
     return (
         <div className="space-y-8">
-            <h1 className="text-3xl font-bold">Dashboard</h1>
-            <div className="p-6 bg-white rounded-lg shadow-md">
-                <h2 className="mb-4 text-xl font-semibold">Calendar Settings</h2>
+            <h1 className="text-3xl font-bold dark:text-white">Dashboard</h1>
+            <div className="p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                <h2 className="mb-4 text-xl font-semibold dark:text-white">Calendar Settings</h2>
                 <div className="flex items-center space-x-4">
-                    <input type="text" readOnly value={`${window.location.origin}/c/${calendar.shareToken}`} className="flex-grow p-2 bg-gray-100 border rounded-md" />
-                    <button onClick={handleCopyToClipboard} title="Copy link" className="p-3 bg-gray-200 rounded-md hover:bg-gray-300"><FaCopy /></button>
-                    <button onClick={handleRotateToken} title="Generate new link" className="p-3 bg-yellow-200 rounded-md hover:bg-yellow-300"><FaSync /></button>
+                    <input type="text" readOnly value={`${window.location.origin}/c/${calendar.shareToken}`} className="flex-grow p-2 bg-gray-100 border rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" />
+                    <button onClick={handleCopyToClipboard} title="Copy link" className="p-3 bg-gray-200 rounded-md hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500"><FaCopy /></button>
+                    <button onClick={handleRotateToken} title="Generate new link" className="p-3 bg-yellow-200 rounded-md hover:bg-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-400"><FaSync /></button>
                 </div>
-                <p className="mt-2 text-sm text-gray-500">Your timezone is set to: <strong>{calendar.timezone}</strong>. All times are displayed in this timezone.</p>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Your timezone is set to: <strong>{calendar.timezone}</strong>. All times are displayed in this timezone.</p>
             </div>
             <div className="grid gap-8 md:grid-cols-3">
                 <div className="md:col-span-2">
@@ -199,29 +199,41 @@ const DashboardPage = () => {
                     />
                 </div>
                 <div>
-                     <div className="p-6 bg-white rounded-lg shadow-md">
-                        <h3 className="mb-4 text-lg font-semibold">Add Manual Event</h3>
+                     <div className="p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                        <h3 className="mb-4 text-lg font-semibold dark:text-white">Add Manual Event</h3>
                         <form onSubmit={handleAddManualEvent} className="space-y-4">
-                           <div><label className="block text-sm font-medium">Title</label><input name="title" type="text" required className="w-full p-2 mt-1 border rounded-md"/></div>
-                           <div><label className="block text-sm font-medium">Date</label><input name="date" type="date" required className="w-full p-2 mt-1 border rounded-md"/></div>
+                           <div>
+                                <label className="block text-sm font-medium dark:text-gray-300">Title</label>
+                                <input name="title" type="text" required className="w-full p-2 mt-1 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-white"/>
+                           </div>
+                           <div>
+                                <label className="block text-sm font-medium dark:text-gray-300">Date</label>
+                                <input name="date" type="date" required className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white dark:[color-scheme:dark]"/>
+                           </div>
                            <div className="flex space-x-2">
-                               <div><label className="block text-sm font-medium">Start Time</label><input name="startTime" type="time" required className="w-full p-2 mt-1 border rounded-md"/></div>
-                               <div><label className="block text-sm font-medium">End Time</label><input name="endTime" type="time" required className="w-full p-2 mt-1 border rounded-md"/></div>
+                               <div>
+                                    <label className="block text-sm font-medium dark:text-gray-300">Start Time</label>
+                                    <input name="startTime" type="time" required className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white dark:[color-scheme:dark]"/>
+                               </div>
+                               <div>
+                                    <label className="block text-sm font-medium dark:text-gray-300">End Time</label>
+                                    <input name="endTime" type="time" required className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white dark:[color-scheme:dark]"/>
+                               </div>
                            </div>
                            <button type="submit" className="w-full py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700">Add Event</button>
                         </form>
                      </div>
                 </div>
             </div>
-            <div className="p-6 bg-white rounded-lg shadow-md">
-                <h2 className="mb-4 text-xl font-semibold">Pending Booking Requests</h2>
+            <div className="p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                <h2 className="mb-4 text-xl font-semibold dark:text-white">Pending Booking Requests</h2>
                 {requests.length > 0 ? (
                     <ul className="space-y-4">
                         {requests.map(req => (
-                            <li key={req.id} className="flex items-center justify-between p-4 border rounded-md">
+                            <li key={req.id} className="flex items-center justify-between p-4 border rounded-md dark:border-gray-700">
                                 <div>
-                                    <p className="font-semibold">{req.requesterName} ({req.requesterEmail})</p>
-                                    <p className="text-sm text-gray-600">
+                                    <p className="font-semibold dark:text-white">{req.requesterName} ({req.requesterEmail})</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-300">
                                         Wants to book:{' '}
                                         <span className="font-medium">
                                             {formatInTimeZone(req.requestedStartUTC.toDate(), 'MMM d, h:mm a', calendar.timezone)}
@@ -237,7 +249,7 @@ const DashboardPage = () => {
                             </li>
                         ))}
                     </ul>
-                ) : (<p className="text-gray-500">No pending requests.</p>)}
+                ) : (<p className="text-gray-500 dark:text-gray-400">No pending requests.</p>)}
             </div>
             <EditEventModal 
                 isOpen={isEditModalOpen}
