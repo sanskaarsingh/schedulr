@@ -48,31 +48,31 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
-      <div className="p-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <h2 className="mb-6 text-2xl font-bold text-center">{isLogin ? 'Login' : 'Sign Up'}</h2>
+    <div className="flex flex-col items-center justify-center flex-grow">
+      <div className="w-full max-w-xl bg-white dark:bg-[#1c1c1c] p-8 rounded-lg shadow-md border border-gray-200 dark:border-[#2a2a2a]">
+        <h2 className="mb-6 text-2xl font-bold text-center dark:text-white">{isLogin ? 'Login' : 'Sign Up'}</h2>
         <form onSubmit={handleAuthAction} className="space-y-4">
           {!isLogin && (
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} required className="block w-full mt-1 bg-white border-gray-300 rounded-md shadow-sm dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-500 focus:ring-indigo-500" />
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} required className="block w-full px-4 py-2 mt-2 bg-white border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-black focus:border-orange-500 focus:ring-orange-500" />
             </div>
           )}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="block w-full mt-1 bg-white border-gray-300 rounded-md shadow-sm dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-500 focus:ring-indigo-500" />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="block w-full px-4 py-2 mt-2 bg-white border-gray-300 rounded-md shadow-sm py pymt-2 -4 mt-2np px -3 dark:border-gray-700 dark:bg-black focus:border-orange-500 focus:ring-orange-500" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="block w-full mt-1 bg-white rounded-md shadow-sm border--gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-500 focus:ring-indigo-500" />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="block w-full px-4 py-2 mt-2 border-gray-300 rounded-md shadow-sm mt bg-4-white mt- dark:border-gray-700 dark:bg-black focus:border-orange-500 focus:ring-orange-500" />
           </div>
-          <button type="submit" disabled={loading} className="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 disabled:opacity-50">
+          <button type="submit" disabled={loading} className="w-full px-4 py-2 text-white transition-colors duration-200 bg-orange-500 rounded-md hover:bg-orange-600 disabled:opacity-50">
             {loading ? 'Processing...' : (isLogin ? 'Login' : 'Sign Up')}
           </button>
         </form>
-        <p className="mt-4 text-sm text-center">
+        <p className="mt-4 text-sm text-center text-gray-600 dark:text-gray-400">
           {isLogin ? "Don't have an account?" : "Already have an account?"}
-          <button onClick={() => setIsLogin(!isLogin)} className="ml-1 text-indigo-600 hover:underline">
+          <button onClick={() => setIsLogin(!isLogin)} className="ml-1 font-semibold text-orange-500 hover:underline">
             {isLogin ? 'Sign Up' : 'Login'}
           </button>
         </p>
