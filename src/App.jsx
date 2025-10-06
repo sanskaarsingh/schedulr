@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './hooks/useAuth.jsx';
-import { ThemeProvider } from './hooks/useTheme.jsx'; // This was the missing line
+import { ThemeProvider } from './hooks/useTheme.jsx';
 import AuthGuard from './components/AuthGuard';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
@@ -31,6 +31,15 @@ function App() {
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </main>
+
+            {/* --- ADD THIS FOOTER SECTION --- */}
+            <footer className="w-full p-4 text-center border-t dark:border-gray-700">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                Created by Sanskar Singh
+              </p>
+            </footer>
+            {/* ----------------------------- */}
+            
           </div>
         </AuthProvider>
       </BrowserRouter>
