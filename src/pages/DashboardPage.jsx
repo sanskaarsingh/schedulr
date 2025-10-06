@@ -140,13 +140,13 @@ const DashboardPage = () => {
             <h1 className="text-3xl font-bold dark:text-white">Dashboard</h1>
             
             <div className="bg-white dark:bg-[#1c1c1c] p-6 rounded-lg shadow-md border border-gray-200 dark:border-[#2a2a2a]">
-                <h2 className="mb-4 text-xl font-semibold dark:text-white">Calendar Settings</h2>
+                <h2 className="mb-4 text-xl font-semibold dark:text-white">Sharable Calendar Link</h2>
                 <div className="flex items-center space-x-4">
                     <input type="text" readOnly value={`${window.location.origin}/c/${calendar.shareToken}`} className="flex-grow p-2 bg-gray-100 border rounded-md dark:bg-black dark:border-gray-700 dark:text-gray-300" />
                     <button onClick={handleCopyToClipboard} title="Copy link" className="p-3 bg-gray-200 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"><FaCopy /></button>
                     <button onClick={handleRotateToken} title="Generate new link" className="p-3 bg-yellow-200 rounded-md hover:bg-yellow-300 dark:bg-yellow-600 dark:hover:bg-yellow-500"><FaSync /></button>
                 </div>
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Your timezone is set to: <strong>{calendar.timezone}</strong>. All times are displayed in this timezone.</p>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Share this link to share your schedule and let others request a slot</p>
             </div>
             
             <div className="grid gap-8 md:grid-cols-3">

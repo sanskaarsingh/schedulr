@@ -1,129 +1,274 @@
-# Schedulr - A Simple Calendar Booking App
+🗓️ Schedulr – A Simple Calendar Booking App
 
-This repository contains a full-stack, production-ready calendar booking application. It allows users (owners) to manage a private calendar and share a public link for others to book available time slots.
+Schedulr is a full-stack, serverless calendar booking web app that enables private calendar management and public booking through a unique shareable link.
+It’s built entirely with free-tier services — React (Vite) + Firebase (Auth & Firestore) — making it cost-free, lightweight, and production-ready.
 
-The frontend is built with **React (Vite)** and **Tailwind CSS**, hosted for free on **GitHub Pages**. The backend logic, authentication, and database are handled entirely by **Firebase** (Auth and Firestore), using only the free "Spark" plan.
+🌐 Live Demo
+
+(Replace this with your deployed URL once live)
+https://your-username.github.io/your-repo-name/
+
+🚀 Overview
+
+Schedulr lets owners securely manage a private calendar and share a public URL so visitors can book available time slots.
+It automatically handles availability, prevents double-bookings using Firestore transactions, and provides a clean, responsive UI for both users and visitors.
+
+✨ Key Features
+🔐 For Calendar Owners
+
+Secure Authentication – Email/password sign-up & login via Firebase Auth.
+
+Private Dashboard – Manage your entire schedule from one central dashboard.
+
+Calendar Management – View your monthly calendar with existing events and requests.
+
+Manual Event Management (CRUD):
+
+Add custom events with title, description, and time.
+
+View full event details by clicking an event.
+
+Edit events via a modal form.
+
+Delete events instantly.
+
+Booking Request Management:
+
+View all pending booking requests from visitors.
+
+Confirm a request → Automatically creates a calendar event.
+
+Reject a request → Removes it from the pending list.
+
+Shareable Link:
+
+Each calendar has a unique, private shareable link (/c/:share_token).
+
+Copy the link directly from the dashboard.
+
+Regenerate it anytime to revoke old access.
+
+Availability Calculation:
+The app automatically determines available slots based on working hours and existing confirmed events.
+
+Transactional Booking Confirmations:
+Bookings are confirmed through Firestore transactions to prevent double-bookings and maintain data integrity.
+
+Secure by Design:
+Custom Firestore Security Rules ensure users can only modify their own data.
+
+👥 For Visitors
+
+Public Calendar View:
+See the owner’s calendar with confirmed “Busy” slots hidden from editing.
+
+Flexible Booking Form:
+Request any time slot (not limited to pre-defined blocks).
+Fill in name, email, and booking details.
+
+Real-Time Validation:
+Immediate feedback for invalid times or unavailable slots.
+
+Smooth Booking Workflow:
+Requests go directly to the owner’s dashboard for confirmation.
+
+💡 General Features
+
+Dark Mode: Elegant black & orange theme toggle.
+
+Responsive Design: Fully functional on both desktop and mobile.
+
+Smooth Animations: Framer Motion–based transitions for modals and UI actions.
+
+E2E Testing: Complete Cypress suite for booking workflows.
+
+🧱 Tech Stack
+Layer	Technologies
+Frontend	React (Vite), React Router, Tailwind CSS
+Date & Time	date-fns and date-fns-tz (for timezone-safe operations)
+Backend	Firebase Authentication, Firestore Database
+Hosting	GitHub Pages (Frontend), Firebase (Backend)
+Testing	Cypress (E2E)
+⚙️ Step-by-Step Deployment Guide
+Step 1 – Set Up Firebase Project
+
+Go to the Firebase Console
+ → Add Project → name it (e.g., my-schedulr-app).
+
+Inside the project, click “Web” (</>) → Register app → Copy the firebaseConfig object.
+
+Enable Authentication:
+
+Navigate: Build → Authentication → Get Started
+
+Enable Email/Password provider.
+
+Enable Firestore Database:
+
+Go to Build → Firestore Database → Create Database.
+
+Choose Production Mode, pick a location near you.
+
+Step 2 – Configure Firestore Security Rules
+
+Go to the Rules tab in Firestore.
+
+Delete placeholder rules.
+
+Copy and paste from your project’s firestore.rules file.
+
+Click Publish.
+
+Step 3 – Local Setup
+# Clone repository
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+
+# Install dependencies
+npm install
+
+Create Environment File
+
+Create .env in the project root and paste:
+
+VITE_FIREBASE_API_KEY="your-api-key"
+VITE_FIREBASE_AUTH_DOMAIN="your-auth-domain"
+VITE_FIREBASE_PROJECT_ID="your-project-id"
+VITE_FIREBASE_STORAGE_BUCKET="your-storage-bucket"
+VITE_FIREBASE_MESSAGING_SENDER_ID="your-messaging-sender-id"
+VITE_FIREBASE_APP_ID="your-app-id"
 
 
+🔸 All variable names must start with VITE_ for Vite to expose them to the app.
 
-## Features
+Step 4 – Run Locally for Testing
+npm run dev
 
--   **Owner Authentication**: Secure sign-up and login for calendar owners via email/password.
--   **Private Calendar Management**: Owners can view their calendar and manually add events for the current month.
--   **Shareable Public Link**: Each calendar has a unique, shareable URL (`/c/:share_token`).
--   **Public Booking**: Visitors can view the owner's availability for the current month and request a booking in an available slot.
--   **Availability Calculation**: The app automatically calculates available slots based on the owner's configured working hours and existing confirmed events.
--   **Booking Request Workflow**: Owners see pending requests on their dashboard and can **Confirm** or **Reject** them.
--   **Transactional Confirmations**: The booking confirmation process is a **Firestore transaction**, preventing double-bookings and ensuring data integrity.
--   **Secure by Design**: Firestore security rules enforce strict permissions, ensuring users can only modify their own data and that all actions are validated on the server.
 
----
+Visit: http://localhost:5173
 
-## Tech Stack
+Create your first Owner account via “Login / Sign Up”
 
--   **Frontend**: React (Vite), React Router, Tailwind CSS
--   **Date/Time**: `date-fns` and `date-fns-tz` for robust date and timezone manipulation.
--   **Backend**: Firebase (Authentication, Firestore)
--   **Hosting**: GitHub Pages (Frontend), Firebase (Backend)
--   **E2E Testing**: Cypress
+The app will auto-generate your user and calendar documents in Firestore.
 
----
+Run Cypress E2E Tests
+npm run cypress:open
 
-## Step-by-Step Deployment Guide
 
-Follow these instructions to set up and deploy your own instance of this application.
+Select and execute the booking.spec.js suite.
 
-### Step 1: Set Up Firebase Project
+Step 5 – Deploy Frontend to GitHub Pages
 
-1.  **Create a Firebase Project**: Go to the [Firebase Console](https://console.firebase.google.com/) and click "Add project". Give it a name (e.g., `my-schedulr-app`).
-2.  **Create a Web App**: Inside your project, click the Web icon (`</>`) to add a new web app. Name it and register it. Firebase will provide you with a `firebaseConfig` object. **Copy these keys.**
-3.  **Enable Authentication**: In the Firebase console, go to `Build > Authentication`. Click "Get started" and enable the **Email/Password** sign-in provider.
-4.  **Enable Firestore**: Go to `Build > Firestore Database`. Click "Create database", start in **production mode**, and choose a location close to you.
+Create a new GitHub repository and push your local code.
 
-### Step 2: Configure Firestore Security Rules
+Run:
 
-1.  In the Firestore Database section of the console, click the **Rules** tab.
-2.  Delete the existing placeholder rules.
-3.  Copy the entire content of the `firestore.rules` file from this repository and paste it into the editor.
-4.  Click **Publish**.
+npm run deploy
 
-### Step 3: Set Up Local Environment
 
-1.  **Clone the repository**:
-    ```bash
-    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-    cd your-repo-name
-    ```
-2.  **Install dependencies**:
-    ```bash
-    npm install
-    ```
-3.  **Create Environment File**: Create a file named `.env` in the root of the project. Copy the contents of `.env.example` into it.
-    ```bash
-    # .env
-    VITE_FIREBASE_API_KEY="your-api-key"
-    VITE_FIREBASE_AUTH_DOMAIN="your-auth-domain"
-    VITE_FIREBASE_PROJECT_ID="your-project-id"
-    VITE_FIREBASE_STORAGE_BUCKET="your-storage-bucket"
-    VITE_FIREBASE_MESSAGING_SENDER_ID="your-messaging-sender-id"
-    VITE_FIREBASE_APP_ID="your-app-id"
-    ```
-4.  **Add Firebase Config**: Paste the keys you copied from Step 1 into your `.env` file. **Important**: The variable names must start with `VITE_`.
+This builds and pushes dist/ to a new gh-pages branch.
 
-### Step 4: Run Locally for Testing
+In GitHub → Settings → Pages, set:
 
-1.  Start the development server:
-    ```bash
-    npm run dev
-    ```
-2.  Open your browser to `http://localhost:5173`.
-3.  **Create an Owner Account**: Click "Login / Sign Up", switch to the Sign Up form, and create your first user. This will automatically generate a `user` document and a `calendar` document in Firestore.
-4.  **Run Cypress Tests**: To run the end-to-end tests, use the command:
-    ```bash
-    npm run cypress:open
-    ```
-    This will open the Cypress test runner, where you can execute the `booking.spec.js` test suite.
+Source: gh-pages branch
 
-### Step 5: Deploy to GitHub Pages
+Your site will go live in a few minutes 🎉
 
-1.  **Create a GitHub Repository**: Create a new repository on GitHub and push your local code to it.
-2.  **Update `package.json`**: If your repository name is `my-calendar-app`, you might need to add a `"homepage"` field to `package.json` for routing to work correctly on GitHub pages, though Vite's `base: '/'` config should handle this for project pages.
-3.  **Deploy**: Run the deploy script. This command builds the app and pushes the `dist` folder to a `gh-pages` branch on your repository.
-    ```bash
-    npm run deploy
-    ```
-4.  **Configure GitHub Pages**: In your GitHub repository settings, go to `Pages`. Set the source to deploy from the `gh-pages` branch. Your site will be live in a few minutes.
+Vite automatically handles routing (base: '/'), but you can add a "homepage" field to package.json if needed.
 
----
-
-## Technical Explanations
-
-### Firestore Transaction for Confirming Bookings
-
-The most critical operation is confirming a booking, as it must prevent double-booking. This is achieved using a **Firestore Transaction**.
-
-```javascript
-// From src/pages/DashboardPage.jsx
+🔧 Technical Breakdown
+Firestore Transaction (Prevent Double-Booking)
 await runTransaction(db, async (transaction) => {
-    // 1. Define references to documents needed
-    const eventsRef = collection(db, `calendars/${calendar.id}/events`);
-    const reqRef = doc(db, `calendars/${calendar.id}/booking_requests`, request.id);
+  const eventsRef = collection(db, `calendars/${calendar.id}/events`);
+  const reqRef = doc(db, `calendars/${calendar.id}/booking_requests`, request.id);
 
-    // 2. Read data within the transaction: Check for conflicting events
-    const conflictQuery = query(eventsRef,
-        where('startUTC', '<', request.requestedEndUTC),
-        where('endUTC', '>', request.requestedStartUTC)
-    );
-    // Firestore transactions require reads to happen before writes
-    const conflictingEvents = await transaction.get(conflictQuery);
+  const conflictQuery = query(
+    eventsRef,
+    where('startUTC', '<', request.requestedEndUTC),
+    where('endUTC', '>', request.requestedStartUTC)
+  );
 
-    if (!conflictingEvents.empty) {
-        // If a conflict is found, abort the transaction by throwing an error
-        throw new Error("This time slot is no longer available.");
-    }
+  const conflictingEvents = await transaction.get(conflictQuery);
 
-    // 3. Write data within the transaction: Create event & update request
-    // This part only runs if the reads above found no conflicts.
-    transaction.set(doc(eventsRef), newEvent);
-    transaction.update(reqRef, { status: 'confirmed' });
+  if (!conflictingEvents.empty) {
+    throw new Error("This time slot is no longer available.");
+  }
+
+  transaction.set(doc(eventsRef), newEvent);
+  transaction.update(reqRef, { status: 'confirmed' });
 });
+
+
+This ensures atomic reads/writes and prevents two users from booking the same slot concurrently.
+
+📘 User Manual
+👤 For Calendar Owners
+
+Sign Up / Log In:
+
+Go to your site, click “Login / Sign Up”.
+
+Create an account → auto-generates your private calendar.
+
+Add Manual Events:
+
+Use the “Add Event” form.
+
+Enter title, description, date, and time → click “Add”.
+
+View / Edit / Delete Events:
+
+Click an event to open its details.
+
+Use ✏️ to edit, 🗑️ to delete.
+
+Manage Booking Requests:
+
+Incoming requests appear under “Pending Requests”.
+
+Click Confirm → adds it to calendar.
+
+Click Reject → deletes the request.
+
+Share Your Calendar:
+
+Copy your unique public link from “Calendar Settings”.
+
+Share it with anyone.
+
+Click “Regenerate” to reset the link anytime.
+
+🧑‍💻 For Visitors
+
+Accessing the Calendar:
+
+Open the share link from the owner.
+
+View their availability (Busy slots hidden).
+
+Requesting a Slot:
+
+Fill out your name, email, and requested time.
+
+Click “Send Request”.
+
+The owner will see your request and confirm or reject it.
+
+✅ Additional Notes
+
+Free Hosting: Works fully under Firebase Spark plan + GitHub Pages.
+
+Responsive: Works seamlessly across all screen sizes.
+
+Secure: Auth + Firestore rules prevent unauthorized writes.
+
+Customizable: Easily tweak styles and features via Tailwind and Firestore schema.
+
+🧑‍💻 Contributing
+
+Pull requests are welcome!
+If you find bugs, open an issue or submit a fix with a descriptive commit message.
+
+🪪 License
+
+This project is licensed under the MIT License – you’re free to modify and distribute it.
