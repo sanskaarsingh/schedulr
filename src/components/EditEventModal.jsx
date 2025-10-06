@@ -9,8 +9,6 @@ const EditEventModal = ({ isOpen, onClose, event, onUpdateEvent, timezone }) => 
   const [endTime, setEndTime] = useState('');
   const [description, setDescription] = useState('');
 
-  useEffect(() => { /* ... same as before ... */ }, [event, timezone]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     onUpdateEvent(event.id, { title, date, startTime, endTime, description });
