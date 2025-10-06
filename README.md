@@ -6,7 +6,7 @@ It’s built entirely with free-tier services — React (Vite) + Firebase (Auth 
 🌐 Live Demo
 
 (Replace this with your deployed URL once live)
-https://your-username.github.io/your-repo-name/
+https://shedulr-ec642.web.app/
 
 🚀 Overview
 
